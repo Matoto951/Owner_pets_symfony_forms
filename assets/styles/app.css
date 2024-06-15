@@ -1,3 +1,33 @@
+:root{
+    font-family: Arial, sans-serif;
+    color: #ccc;
+}
+
 body {
-    background-color: skyblue;
+    background-color: #333;
+}
+.container{
+    max-width: 1000px;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+a{
+    color: #ccc;
+    font-weight: 700;
+}
+
+table{
+    width: 100%;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+}
+
+td,th{
+    border: 1px solid #ccc;
+    padding: 5px;
 }

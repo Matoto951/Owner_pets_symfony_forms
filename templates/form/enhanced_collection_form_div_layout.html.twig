@@ -1,0 +1,71 @@
+{% use 'form_div_layout.html.twig' %}
+
+{% block enhanced_collection_widget -%}
+    {%- set controller_values = controller_values|merge({
+        'button-add': block('button_add')|trim,
+        'button-delete': block('button_delete')|trim
+    }) -%}
+
+    {# attr for the data target on the entry of the collection #}
+    {%- set attr_data_target = {('data-enhanced-collection-target'): 'entry' } -%}
+
+    {% if prototype is defined and not prototype.rendered %}
+        {%- set prototype_attr = prototype.vars.row_attr|merge(attr_data_target) -%}
+        {%- set controller_values = controller_values|merge({
+            'prototype': form_row(prototype, {'row_attr': prototype_attr})
+        }) -%}
+    {% endif %}
+
+    <div {{ stimulus_controller('enhanced-collection', controller_values) }}{{ block('widget_container_attributes') }}>
+        {%- if form is rootform -%}
+            {{ form_errors(form) }}
+        {%- endif -%}
+
+        <div {{ stimulus_target('enhanced-collection', 'container') }}{% if entry_container_attr %}{% with { attr: entry_container_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
+            {% for child in form|filter(child => not child.rendered) %}
+                {%- set child_row_attr = child.vars.row_attr|merge(attr_data_target) -%}
+                {{- form_row(child, {'row_attr': child_row_attr}) -}}
+            {% endfor %}
+        </div>
+
+        {{- form_rest(form) -}}
+    </div>
+{%- endblock %}
+
+{% block button_add %}
+    <button {{ stimulus_action('enhanced-collection', 'add', 'click') }}{% if button_add_attr %}{% with { attr: button_add_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}
+            type="button">
+        {%- if translation_domain is same as(false) -%}
+            {%- if button_add_html is same as(false) -%}
+                {{- button_add -}}
+            {%- else -%}
+                {{- button_add|raw -}}
+            {%- endif -%}
+        {%- else -%}
+            {%- if button_add_html is same as(false) -%}
+                {{- button_add|trans(button_add_translation_parameters, translation_domain) -}}
+            {%- else -%}
+                {{- button_add|trans(button_add_translation_parameters, translation_domain)|raw -}}
+            {%- endif -%}
+        {%- endif -%}
+    </button>
+{% endblock %}
+
+{% block button_delete %}
+    <button {{ stimulus_action('enhanced-collection', 'delete', 'click') }}{% if button_delete_attr %}{% with { attr: button_delete_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}
+            type="button">
+        {%- if translation_domain is same as(false) -%}
+            {%- if button_delete_html is same as(false) -%}
+                {{- button_delete -}}
+            {%- else -%}
+                {{- button_delete|raw -}}
+            {%- endif -%}
+        {%- else -%}
+            {%- if button_delete_html is same as(false) -%}
+                {{- button_delete|trans(button_delete_translation_parameters, translation_domain) -}}
+            {%- else -%}
+                {{- button_delete|trans(button_delete_translation_parameters, translation_domain)|raw -}}
+            {%- endif -%}
+        {%- endif -%}
+    </button>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Owners{% endblock %}
+
+{% block body %}
+    <div class="owner-wrapper">
+        <h1>Owners</h1>
+
+        <a href="{{ path('app_owner_new') }}">Create new owner</a>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Num. of pets</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for owner in owners %}
+                <tr>
+                    <td>{{ owner.id }}</td>
+                    <td>{{ owner.name }}</td>
+                    <td>{{ owner.age }}</td>
+                    <td>{{ owner.pets|length }}</td>
+                    <td>
+                        <a href="{{ path('app_owner_edit', {owner: owner.id}) }}">Edit</a>
+                        {{ include('owner/_delete.html.twig') }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

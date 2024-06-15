@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Owners{% endblock %}
+
+{% block body %}
+    <div class="owner-wrapper">
+        <h1>Edit owner</h1>
+
+        <a href="{{ path('app_owner_index') }}">Return to list</a>
+
+        {{ include('owner/_form.html.twig') }}
+    </div>
+{% endblock %}

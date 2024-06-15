@@ -1,5 +1,9 @@
 twig:
     file_name_pattern: '*.twig'
+    form_themes: [
+        'form_div_layout.html.twig',
+        'form/enhanced_collection_form_div_layout.html.twig'
+    ]
 
 when@test:
     twig:
