@@ -1,4 +1,4 @@
-{% use 'form_div_layout.html.twig' %}
+{% use 'bootstrap_5_layout.html.twig' %}
 
 {% block enhanced_collection_widget -%}
     {%- set controller_values = controller_values|merge({
@@ -33,7 +33,7 @@
 {%- endblock %}
 
 {% block button_add %}
-    <button {{ stimulus_action('enhanced-collection', 'add', 'click') }}{% if button_add_attr %}{% with { attr: button_add_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}
+    <button class="btn btn-primary" {{ stimulus_action('enhanced-collection', 'add', 'click') }}{% if button_add_attr %}{% with { attr: button_add_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}
             type="button">
         {%- if translation_domain is same as(false) -%}
             {%- if button_add_html is same as(false) -%}
@@ -52,7 +52,7 @@
 {% endblock %}
 
 {% block button_delete %}
-    <button {{ stimulus_action('enhanced-collection', 'delete', 'click') }}{% if button_delete_attr %}{% with { attr: button_delete_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}
+    <button class="btn btn-danger" {{ stimulus_action('enhanced-collection', 'delete', 'click') }}{% if button_delete_attr %}{% with { attr: button_delete_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}
             type="button">
         {%- if translation_domain is same as(false) -%}
             {%- if button_delete_html is same as(false) -%}
