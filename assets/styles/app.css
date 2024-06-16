@@ -31,3 +31,12 @@ td,th{
     border: 1px solid #ccc;
     padding: 5px;
 }
+
+[data-controller="enhanced-collection"]{
+    border: 1px solid #ccc;
+    padding: 15px;
+}
+[data-enhanced-collection-target="entry"]{
+    border: 1px solid #ccc;
+    padding: 15px;
+}

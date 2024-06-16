@@ -2,15 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\PetRepository;
+use App\Repository\ToyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: PetRepository::class)]
-class Pet
+#[ORM\Entity(repositoryClass: ToyRepository::class)]
+class Toy
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,20 +16,12 @@ class Pet
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
     private ?string $name = null;
-
-    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
-    private ?int $age = null;
-
-    #[ORM\ManyToOne(inversedBy: 'pets')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Owner $owner = null;
 
     /**
      * @var Collection<int, PetToy>
      */
-    #[ORM\OneToMany(targetEntity: PetToy::class, mappedBy: 'pet', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: PetToy::class, mappedBy: 'toy', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $petToys;
 
     public function __construct()
@@ -56,28 +46,9 @@ class Pet
         return $this;
     }
 
-    public function getAge(): ?int
+    public function __toString(): string
     {
-        return $this->age;
-    }
-
-    public function setAge(?int $age): static
-    {
-        $this->age = $age;
-
-        return $this;
-    }
-
-    public function getOwner(): ?Owner
-    {
-        return $this->owner;
-    }
-
-    public function setOwner(?Owner $owner): static
-    {
-        $this->owner = $owner;
-
-        return $this;
+        return $this->name;
     }
 
     /**
@@ -92,7 +63,7 @@ class Pet
     {
         if (!$this->petToys->contains($petToy)) {
             $this->petToys->add($petToy);
-            $petToy->setPet($this);
+            $petToy->setToy($this);
         }
 
         return $this;
@@ -102,8 +73,8 @@ class Pet
     {
         if ($this->petToys->removeElement($petToy)) {
             // set the owning side to null (unless already changed)
-            if ($petToy->getPet() === $this) {
-                $petToy->setPet(null);
+            if ($petToy->getToy() === $this) {
+                $petToy->setToy(null);
             }
         }
 

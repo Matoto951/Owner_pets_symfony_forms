@@ -1,0 +1,24 @@
+{% block _owner_form_pets_entry_petToys_row %}
+    <div class="pet-toy-collection">
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Qty</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+                {#{{ dump(form) }}#}
+                {% for child in form.children %}
+                    <tr class="pet-toy-item">
+                        <td>{{ child.vars.value.toy.name }}</td>
+                        <td>{{ form_row(child.quantity) }}</td>
+                        <td>{{ form_row(child.price) }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

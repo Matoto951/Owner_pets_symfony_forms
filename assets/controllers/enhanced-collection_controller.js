@@ -36,10 +36,8 @@ export default class extends Controller {
         }
 
         // insert delete button on each existing entry.
-        console.log(this.allowDeleteValue, this.entryTargets)
         if (true === this.allowDeleteValue && this.entryTargets.length > 0) {
             this.entryTargets.forEach(function (element, index) {
-                console.log('element', element)
                 this._addDeleteButton(element, index)
             }, this);
         }
@@ -89,7 +87,6 @@ export default class extends Controller {
      * @returns {(string|ChildNode)}
      */
     _addDeleteButton(entry, index) {
-        console.log('_addDeleteButton')
         // link the button and the entry by the data-index-entry attribute
         entry.dataset.indexEntry = index;
 

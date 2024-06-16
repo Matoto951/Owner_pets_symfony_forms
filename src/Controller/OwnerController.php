@@ -27,8 +27,8 @@ class OwnerController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $owner = new Owner();
-        $pet = new Pet();
-        $owner->addPet($pet);
+        //$pet = new Pet();
+        //$owner->addPet($pet);
         $form = $this->createForm(OwnerFormType::class, $owner);
 
         $form->handleRequest($request);
