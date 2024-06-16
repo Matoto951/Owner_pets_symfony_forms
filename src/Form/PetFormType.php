@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class PetFormType extends AbstractType
 {
@@ -23,11 +24,19 @@ class PetFormType extends AbstractType
             $data = $event->getData() ?? new Pet();
 
             $form
-                ->add('petToys', PetToyCollectionType::class, [
+                ->add('toyBoxes', EnhancedCollectionType::class, [
+                    'entry_type' => ToyBoxFormType::class,
+                    'entry_options' => [
+                        'pet' => $data,
+                    ],
                     'allow_add' => true,
                     'allow_delete' => true,
                     'by_reference' => false,
-                    'pet' => $data,
+                    'constraints' => [
+                        new Valid()
+                    ],
+                    'button_add' => 'Add a tox box',
+                    'button_delete' => 'Delete this toy box'
                 ])
                 ;
         });

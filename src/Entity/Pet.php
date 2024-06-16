@@ -29,14 +29,15 @@ class Pet
     private ?Owner $owner = null;
 
     /**
-     * @var Collection<int, PetToy>
+     * @var Collection<int, ToyBox>
      */
-    #[ORM\OneToMany(targetEntity: PetToy::class, mappedBy: 'pet', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    private Collection $petToys;
+    #[ORM\OneToMany(targetEntity: ToyBox::class, mappedBy: 'pet', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $toyBoxes;
 
     public function __construct()
     {
         $this->petToys = new ArrayCollection();
+        $this->toyBoxes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -81,29 +82,29 @@ class Pet
     }
 
     /**
-     * @return Collection<int, PetToy>
+     * @return Collection<int, ToyBox>
      */
-    public function getPetToys(): Collection
+    public function getToyBoxes(): Collection
     {
-        return $this->petToys;
+        return $this->toyBoxes;
     }
 
-    public function addPetToy(PetToy $petToy): static
+    public function addToyBox(ToyBox $toyBox): static
     {
-        if (!$this->petToys->contains($petToy)) {
-            $this->petToys->add($petToy);
-            $petToy->setPet($this);
+        if (!$this->toyBoxes->contains($toyBox)) {
+            $this->toyBoxes->add($toyBox);
+            $toyBox->setPet($this);
         }
 
         return $this;
     }
 
-    public function removePetToy(PetToy $petToy): static
+    public function removeToyBox(ToyBox $toyBox): static
     {
-        if ($this->petToys->removeElement($petToy)) {
+        if ($this->toyBoxes->removeElement($toyBox)) {
             // set the owning side to null (unless already changed)
-            if ($petToy->getPet() === $this) {
-                $petToy->setPet(null);
+            if ($toyBox->getPet() === $this) {
+                $toyBox->setPet(null);
             }
         }
 

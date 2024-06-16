@@ -2,39 +2,39 @@
 
 namespace App\Repository;
 
-use App\Entity\ToyBoxToy;
+use App\Entity\ToyBox;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ToyBoxToy>
+ * @extends ServiceEntityRepository<ToyBox>
  */
-class PetToyRepository extends ServiceEntityRepository
+class ToyBoxRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ToyBoxToy::class);
+        parent::__construct($registry, ToyBox::class);
     }
 
     //    /**
-    //     * @return ToyBoxToy[] Returns an array of ToyBoxToy objects
+    //     * @return ToyBox[] Returns an array of ToyBox objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
+    //        return $this->createQueryBuilder('t')
+    //            ->andWhere('t.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
+    //            ->orderBy('t.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?ToyBoxToy
+    //    public function findOneBySomeField($value): ?ToyBox
     //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
+    //        return $this->createQueryBuilder('t')
+    //            ->andWhere('t.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()

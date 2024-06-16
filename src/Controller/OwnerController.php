@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Owner;
-use App\Entity\Pet;
 use App\Form\OwnerFormType;
 use App\Repository\OwnerRepository;
 use Doctrine\ORM\EntityManagerInterface;

@@ -19,14 +19,21 @@ class Toy
     private ?string $name = null;
 
     /**
-     * @var Collection<int, PetToy>
+     * @var Collection<int, ToyBoxToy>
      */
-    #[ORM\OneToMany(targetEntity: PetToy::class, mappedBy: 'toy', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: ToyBoxToy::class, mappedBy: 'toy', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $petToys;
+
+    /**
+     * @var Collection<int, ToyBoxToy>
+     */
+    #[ORM\OneToMany(targetEntity: ToyBoxToy::class, mappedBy: 'toy', orphanRemoval: true)]
+    private Collection $toyBoxToys;
 
     public function __construct()
     {
         $this->petToys = new ArrayCollection();
+        $this->toyBoxToys = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,14 +59,14 @@ class Toy
     }
 
     /**
-     * @return Collection<int, PetToy>
+     * @return Collection<int, ToyBoxToy>
      */
     public function getPetToys(): Collection
     {
         return $this->petToys;
     }
 
-    public function addPetToy(PetToy $petToy): static
+    public function addPetToy(ToyBoxToy $petToy): static
     {
         if (!$this->petToys->contains($petToy)) {
             $this->petToys->add($petToy);
@@ -69,12 +76,42 @@ class Toy
         return $this;
     }
 
-    public function removePetToy(PetToy $petToy): static
+    public function removePetToy(ToyBoxToy $petToy): static
     {
         if ($this->petToys->removeElement($petToy)) {
             // set the owning side to null (unless already changed)
             if ($petToy->getToy() === $this) {
                 $petToy->setToy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ToyBoxToy>
+     */
+    public function getToyBoxToys(): Collection
+    {
+        return $this->toyBoxToys;
+    }
+
+    public function addToyBoxToy(ToyBoxToy $toyBoxToy): static
+    {
+        if (!$this->toyBoxToys->contains($toyBoxToy)) {
+            $this->toyBoxToys->add($toyBoxToy);
+            $toyBoxToy->setToy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeToyBoxToy(ToyBoxToy $toyBoxToy): static
+    {
+        if ($this->toyBoxToys->removeElement($toyBoxToy)) {
+            // set the owning side to null (unless already changed)
+            if ($toyBoxToy->getToy() === $this) {
+                $toyBoxToy->setToy(null);
             }
         }
 

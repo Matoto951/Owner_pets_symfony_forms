@@ -2,7 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\PetToy;
+use App\Entity\ToyBox;
+use App\Entity\ToyBoxToy;
 use App\Entity\Toy;
 use App\Repository\ToyRepository;
 use Symfony\Component\Form\AbstractType;
@@ -12,7 +13,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PetToyCollectionType extends AbstractType
+class ToyBoxToyCollectionType extends AbstractType
 {
     private $toys;
 
@@ -28,17 +29,19 @@ class PetToyCollectionType extends AbstractType
 
 
             $pet = $options['pet'];
-            $existingPetToys = $pet->getPetToys();
+            /** @var ToyBox $toyBox */
+            $toyBox = $options['toyBox'];
+            $existingPetToys = $toyBox->getToyBoxToys();
 
             foreach ($this->toys as $index => $toy) {
-                $existingPetToy = $existingPetToys->filter(function(PetToy $petToy) use ($toy) {
+                $existingPetToy = $existingPetToys->filter(function(ToyBoxToy $petToy) use ($toy) {
                     return $petToy->getToy() === $toy;
                 })->first();
 
-                $petToy = $existingPetToy ?: (new PetToy())->setPet($pet)->setToy($toy);
+                $toxBoyToy = $existingPetToy ?: (new ToyBoxToy())->setToyBox($toyBox)->setToy($toy);
 
-                $form->add($index, PetToyFormType::class, [
-                    'data' => $petToy,
+                $form->add($index, ToyBoxToyFormType::class, [
+                    'data' => $toxBoyToy,
                 ]);
             }
         });
@@ -49,6 +52,7 @@ class PetToyCollectionType extends AbstractType
         $resolver->setDefaults([
             'data_class' => null,
             'pet' => null,
+            'toyBox' => null,
         ]);
     }
 

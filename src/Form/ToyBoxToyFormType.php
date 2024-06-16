@@ -2,12 +2,12 @@
 
 namespace App\Form;
 
-use App\Entity\PetToy;
+use App\Entity\ToyBoxToy;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PetToyFormType extends AbstractType
+class ToyBoxToyFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -24,7 +24,7 @@ class PetToyFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => PetToy::class,
+            'data_class' => ToyBoxToy::class,
             'attr' => ['novalidate' => 'novalidate']
         ]);
     }
