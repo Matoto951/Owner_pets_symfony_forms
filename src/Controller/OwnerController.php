@@ -39,6 +39,7 @@ class OwnerController extends AbstractController
         }
 
         return $this->render('owner/new.html.twig', [
+            'owner' => $owner,
             'form' => $form
         ]);
     }
@@ -56,6 +57,7 @@ class OwnerController extends AbstractController
         }
 
         return $this->render('owner/edit.html.twig', [
+            'owner' => $owner,
             'form' => $form
         ]);
     }
